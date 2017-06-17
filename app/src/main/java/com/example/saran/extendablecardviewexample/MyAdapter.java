@@ -1,5 +1,6 @@
 package com.example.saran.extendablecardviewexample;
 
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,13 +69,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         holder.ibSetting.setImageResource(R.drawable.ic_expand_more_black_24dp);
                         expandedItem = -1;
                     } else {
-                        callback.itemChanged(expandedItem);
+                        callback.itemCollapse(expandedItem);
                         holder.ibSetting.setImageResource(R.drawable.ic_expand_less_black_24dp);
                         expandedList.set(holder.getAdapterPosition(),true);
                         expandedList.set(expandedItem,false);
                         holder.cvContent.expand();
-                        notifyItemChanged(expandedItem);
-                        expandedItem = holder.getAdapterPosition();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyItemChanged(expandedItem);
+                                expandedItem = holder.getAdapterPosition();
+                            }
+                        },holder.cvContent.getAnimationTime());
                     }
                 }
             }

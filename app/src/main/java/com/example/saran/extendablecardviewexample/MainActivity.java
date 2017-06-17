@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements OnCardViewChanged
     RecyclerView rvMain;
     List<String> titleList;
     List<String> contentList;
+    MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements OnCardViewChanged
 
         setData();
 
-        MyAdapter adapter = new MyAdapter(titleList,contentList,this);
+        adapter = new MyAdapter(titleList,contentList,this);
         LinearLayoutManager llm = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         rvMain.setAdapter(adapter);
         rvMain.setLayoutManager(llm);
@@ -39,11 +40,10 @@ public class MainActivity extends AppCompatActivity implements OnCardViewChanged
     }
 
     @Override
-    public void itemChanged(int position) {
+    public void itemCollapse(int position) {
         MyAdapter.MyViewHolder viewHolder = (MyAdapter.MyViewHolder) rvMain.findViewHolderForAdapterPosition(position);
         if(viewHolder!=null){
             viewHolder.cvContent.collapse();
-            viewHolder.ibSetting.setImageResource(R.drawable.ic_expand_less_black_24dp);
         }
     }
 }
