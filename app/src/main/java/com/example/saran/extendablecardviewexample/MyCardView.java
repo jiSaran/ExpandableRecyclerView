@@ -13,7 +13,7 @@ import android.view.animation.Transformation;
  */
 
 public class MyCardView extends CardView {
-
+    private int animationDuration;
     public MyCardView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
@@ -43,8 +43,13 @@ public class MyCardView extends CardView {
                 return true;
             }
         };
+        animationDuration = distance_to_expand;
         animation.setDuration((long)distance_to_expand);
         startAnimation(animation);
+    }
+
+    public int getAnimationTime(){
+        return animationDuration;
     }
 
     public void collapse(){
@@ -64,6 +69,7 @@ public class MyCardView extends CardView {
                 return true;
             }
         };
+        animationDuration = distance_to_collapse;
         animation.setDuration((long)distance_to_collapse);
         startAnimation(animation);
     }
