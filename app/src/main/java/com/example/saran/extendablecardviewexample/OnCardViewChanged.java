@@ -5,5 +5,5 @@ package com.example.saran.extendablecardviewexample;
  */
 
 public interface OnCardViewChanged {
-    void itemChanged(int position);
+    void itemCollapse(int position);
 }
