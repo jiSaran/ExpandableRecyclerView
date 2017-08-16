@@ -22,6 +22,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private int expandedItem = -1;
     private OnCardViewChanged callback;
     private List<Boolean> expandedList;
+    private boolean isExpandable = true;
 
     public MyAdapter(List<String> mTitleList, List<String> mContentList, OnCardViewChanged onCardViewChanged){
         titleList = mTitleList;
@@ -42,7 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         if(expandedList.get(position)){
-            holder.cvContent.expand();
+            holder.cvContent.expand(isExpandable);
             holder.ibSetting.setImageResource(R.drawable.ic_expand_less_black_24dp);
         } else {
             ViewGroup.LayoutParams layoutParams = holder.cvContent.getLayoutParams();
@@ -58,7 +59,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             @Override
             public void onClick(View v) {
                 if(expandedItem == -1){
-                    holder.cvContent.expand();
+                    holder.cvContent.expand(isExpandable);
                     expandedItem = holder.getAdapterPosition();
                     expandedList.set(holder.getAdapterPosition(),true);
                     holder.ibSetting.setImageResource(R.drawable.ic_expand_less_black_24dp);
@@ -73,7 +74,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         holder.ibSetting.setImageResource(R.drawable.ic_expand_less_black_24dp);
                         expandedList.set(holder.getAdapterPosition(),true);
                         expandedList.set(expandedItem,false);
-                        holder.cvContent.expand();
+                        holder.cvContent.expand(isExpandable);
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
